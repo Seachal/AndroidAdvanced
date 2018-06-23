@@ -1,0 +1,58 @@
+		AOSP源码阅读 -- 开篇：源码下载
+## 参考：
+https://blog.csdn.net/ada_dengpan/article/details/50793463
+改用国内镜像教程
+https://lug.ustc.edu.cn/wiki/mirrors/help/aosp
+https://blog.csdn.net/hehaibo2008/article/details/55100693
+问题解决：
+http://blog.sina.com.cn/s/blog_8753c958010173qu.html
+
+##下载步骤：
+磁盘工具-新建镜像
+
+
+mkdir ~/bin
+PATH=~/bin:$PATH
+curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+chmod a+x ~/bin/repo
+或
+curl https://mirrors.tuna.tsinghua.edu.cn/git/git-repo -o repo
+chmod +x repo
+
+mkdir WORKING_DIRECTORY
+cd WORKING_DIRECTORY
+
+如果想使用tuna的镜像源进行更新，可以将如下内容复制到你的~/.bashrc里
+export REPO_URL='https://mirrors.tuna.tsinghua.edu.cn/git/git-repo/'
+ 或直接在~/bin/repo文件中修改REPO_URL
+
+repo init -u https://aosp.tuna.tsinghua.edu.cn/platform/manifest -b android-8.0.0_r1
+
+repo init -u git://mirrors.ustc.edu.cn/aosp/platform/manifest -b android-6.0.0_r2
+repo sync
+
+挂载AOPS所在磁盘
+hdiutil attach ~/android.dmg -mountpoint /Volumes/android
+
+## 源码架构
+* 我们android应用开发用到的SDK，在AOSP源码路径为：frameorks/base/core/java/android
+（由此可见我们平时用到的技术，其实从整体上看，只是很少很表面的一层）
+
+* frameorks/base/service/core/java/android  -- 研究应用层各组件工作机制用到，如AMS，电量管理、apk安装过程等
+
+*系统应用源码：联系人app、日历app、相册app等，都在frameorks/package下
+
+* developers、development目录下给出很多sample实例
+
+*dalvik 虚拟机源码 在 libcore/dalvik项目 
+
+## 查看源码利器Sublime3 
+http://www.sdifen.com/sublimetext311.html
+
+打开[终端]输入下面命令，开启信任任何来源的安装包
+sudo spctl --master-disable
+
+使用 Sublime3 编辑器查看android 源码教程
+
+
+
